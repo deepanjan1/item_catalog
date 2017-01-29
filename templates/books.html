@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div>
+	<h1>{{ category_name }}</h1>
+</div>
+<br>
+<div>
+	{% for book in books %}
+	<figure>
+	<img src="{{ book.img }}" alt="{{ book.title }}">
+	<figcaption>{{ book.title }}</figcaption>
+	<figcaption>By: {{ book.author }}</figcaption>
+	{% if login_session['userid'] == book.user_id %}
+	<a href="{{ url_for('editBook', book_title=book.title, book_id=book.id) }}">Edit</a> | 
+	<a href="{{ url_for('deleteBook', book_title=book.title, book_id=book.id) }}">Delete</a>
+	{% endif %}
+	</figure>
+	<br>
+	{% endfor %}
+</div>
+{% endblock %}

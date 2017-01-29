@@ -1,0 +1,66 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div>
+	<h1>Edit {{book.title}}</h1>
+</div>
+<hr>
+<div>
+	<form method="POST">
+		<label for="title">Title:</label>
+		<input type ="text" maxlength="100" class="form-control" name="title" value="{{ book.title }}">
+		<label for="author">Author:</label>
+		<input type ="text" maxlength="100" class="form-control" name="author" value="{{ book.author }}">
+		<label for="img">Image:</label>
+		<input type ="text" maxlength="200" class="form-control" name="img" value="{{ book.img }}">
+		<label for="category">Category:</label>
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="category" id="category1" value="Literary and Fiction" {% if category_name == 'Literary and Fiction' %}checked{%endif%}>Literary and Fiction
+		  </label>
+		</div>
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="category" id="category2" value="Self Help" {% if category_name == 'Self Help' %}checked{%endif%}>Self Help
+		  </label>
+		</div>
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="category" id="category3" value="Childrens" {% if category_name == 'Childrens'%}checked{%endif%}>Childrens
+		  </label>
+		</div>
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="category" id="category4" value="Business" {%if category_name =='Business'%}checked{%endif%}>Business
+		  </label>
+		</div>
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="category" id="category5" value="History" {%if category_name =='History'%}checked{%endif%}>History
+		  </label>
+		</div>
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="category" id="category6" value="Biography and Memoirs" {%if category_name =='Biography and Memoirs'%}checked{%endif%}>Biography and Memoirs
+		  </label>
+		</div>
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="category" id="category7" value="Science" {%if category_name =='Science'%}checked{%endif%}>Science
+		  </label>
+		</div>
+		<div class="radio">
+		  <label>
+		    <input type="radio" name="category" id="category8" value="Comics" {%if category_name =='Comics'%}checked{%endif%}>Comics
+		  </label>
+		</div>
+		<button type="submit" class="btn btn-default" id="submit" type="submit">
+		<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
+		<a href = "{{ url_for('showBooks', category_name=category_name) }}"">
+			<button class="btn btn-default delete">
+			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel</button>
+		</a>
+	</form>
+</div>
+
+{% endblock %}

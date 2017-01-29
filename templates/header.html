@@ -1,0 +1,31 @@
+<div class="row top-menu">
+	<div class="col-md-6">
+		<a href="{{url_for('bookCategories')}}">
+			<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Back to Categories
+		</a>
+	</div>
+	<div class="col-md-6 text-right">
+		{% if 'username' not in login_session %}
+			<p><a href = "{{ url_for('showLogin') }}"> 
+				<button class="btn btn-success">
+				<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Login</button>
+				</a>
+			</p>
+		{% else %}
+			<p>
+				<figure>
+				<img src="{{ login_session['picture'] }}">
+				<figcaption>{{ login_session['username'] }}</figcaption>
+				</figure>
+				<a href = "{{ url_for('disconnect') }}"> 
+				<button class="btn btn-default">
+				<span class="glyphicon" aria-hidden="true"></span> Logout</button>
+				</a>
+			</p>
+		{% endif %}
+		<a href = "{{ url_for('newBooks') }}">
+			<button class="btn btn-success">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Book</button>
+		</a>
+	</div>
+</div>
