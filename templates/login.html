@@ -21,6 +21,21 @@
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Book</button>
 		</a>
 	</div>
+
+<div class = 'row flash'>
+	<div class="col-md-12">
+	{% with messages = get_flashed_messages() %}
+      {% if messages %}      
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    </div>
+</div>
+
 </div>
 	<div id="signInButton">
 		<span class="g-signin"

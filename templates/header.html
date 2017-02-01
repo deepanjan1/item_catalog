@@ -1,10 +1,10 @@
 <div class="row top-menu">
-	<div class="col-md-6">
+	<div class="col-md-3">
 		<a href="{{url_for('bookCategories')}}">
 			<span class="glyphicon glyphicon-home" aria-hidden="true"></span> Back to Categories
 		</a>
 	</div>
-	<div class="col-md-6 text-right">
+	<div class="col-md-8 text-right">
 		{% if 'username' not in login_session %}
 			<p><a href = "{{ url_for('showLogin') }}"> 
 				<button class="btn btn-success">
@@ -23,6 +23,8 @@
 				</a>
 			</p>
 		{% endif %}
+	</div>
+	<div class="col-md-1 text-right">
 		<a href = "{{ url_for('newBooks') }}">
 			<button class="btn btn-success">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Book</button>

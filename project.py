@@ -70,6 +70,7 @@ def bookCategories():
 
 @app.route('/categories/<string:category_name>/')
 @app.route('/categories/<string:category_name>/books/')
+
 def showBooks(category_name):
     category_id = getCategoryID(category_name)
     books = session.query(Book).filter_by(category_id=category_id).all()
@@ -80,7 +81,6 @@ def showBooks(category_name):
             category_name=category_name,
             login_session=login_session)
     else:
-        # import pdb; pdb.set_trace()
         return render_template(
             'books.html',
             books=books,
@@ -96,8 +96,10 @@ def showBooks(category_name):
 def editBook(book_title, book_id):
     editedBook = getBookInfo(book_id)
     category = getCategoryInfo(editedBook.category_id)
-    if 'username' not in login_session and login_session[
-            'userid'] != editBook.user_id:
+    # import pdb; pdb.set_trace()
+    if 'username' not in login_session:
+        return redirect(url_for('showLogin'))
+    if login_session['userid'] != editedBook.user_id:
         return redirect(
             url_for(
                 'showBooks',
@@ -137,8 +139,9 @@ def editBook(book_title, book_id):
 def deleteBook(book_title, book_id):
     deletedBook = getBookInfo(book_id)
     category_name = getCategoryName(book_id)
-    if 'username' not in login_session and login_session[
-            'userid'] != deletedBook.user_id:
+    if 'username' not in login_session:
+        return redirect(url_for('showLogin'))
+    if login_session['userid'] != deletedBook.user_id:
         return redirect(
             url_for(
                 'showBooks',
@@ -339,6 +342,13 @@ def clearSession():
 
 
 def getCategoryID(category_name):
+    """
+    Function name: getCategoryID
+    Args:
+        category_name (data type: str): It's the string version of the category name
+    Returns:
+        category.id (data type: int): The ID number for the category
+    """
     try:
         category = session.query(Category).filter_by(name=category_name).one()
         return category.id
@@ -347,16 +357,37 @@ def getCategoryID(category_name):
 
 
 def getCategoryInfo(category_id):
+    """
+    Function name: getCategoryInfo
+    Args:
+        category_id (data type: int): It's the string version of the category ID
+    Returns:
+        category (data type: Category): Returns the entire Category object
+    """
     category = session.query(Category).filter_by(id=category_id).one()
     return category
 
 
 def getBookInfo(book_id):
+    """
+    Function name: getBookInfo
+    Args:
+        book_id (data type: int): It's the string version of the book ID
+    Returns:
+        book (data type: Book): Returns the entire Book object
+    """
     book = session.query(Book).filter_by(id=book_id).one()
     return book
 
 
 def getCategoryName(book_id):
+    """
+    Function name: getCategoryName
+    Args:
+        book_id (data type: int): It's the int version of the book ID
+    Returns:
+        category.name (data type: str): Returns the string version of the category name
+    """
     book = getBookInfo(book_id)
     category = getCategoryInfo(book.category_id)
     return category.name
@@ -384,7 +415,6 @@ def getUserID(email):
         return user.id
     except:
         return None
-
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'

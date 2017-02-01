@@ -1,12 +1,15 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-<div>
+<div class="row">
+	<div class="col-md-6 text-left">
 	<h1>Book Categories</h1>
+	</div>
 </div>
 <br>
 
-<div class = 'flash'>
+<div class = 'row flash'>
+	<div class="col-md-12">
 	{% with messages = get_flashed_messages() %}
       {% if messages %}      
         <ul>
@@ -16,14 +19,17 @@
         </ul>
         {% endif %}
     {% endwith %}
+    </div>
 </div>
 
-<div>
-	{% for category in categories %}
+<div class="row">
+{% for category in categories %}
+	<div class="col-md-6">
 	<a href = "{{ url_for('showBooks', category_name = category.name) }}">
 		<h3>{{category.name}}</h3>
 		<br>
 	</a>
+	</div>
 	{% endfor %}
 </div>
 {% endblock %}
